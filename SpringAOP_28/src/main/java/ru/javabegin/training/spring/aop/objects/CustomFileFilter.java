@@ -12,8 +12,7 @@ public class CustomFileFilter implements FilenameFilter {
 	}
 
 	@Override
-	public boolean accept(File file, String name) 
-	{
+	public boolean accept(File file, String name) {
 		return name.toUpperCase().endsWith("." + extension.toUpperCase());
 	}
 

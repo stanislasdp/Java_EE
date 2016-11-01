@@ -14,18 +14,17 @@ import org.springframework.stereotype.Component;
 @Aspect
 public class MyLogger {
 
-	@Pointcut("execution(* *(..)) && within(ru.javabegin.training.spring.aop.objects.*)")
-	private void allMethods() {};
+	@Pointcut("execution(* ru.javabegin.training.spring.aop.objects.Manager.*(..))")
+	private void allMethods() {
+	};
 
 	@Around("allMethods()")
-	public Object watchTime(ProceedingJoinPoint joinpoint) 
-	{
+	public Object watchTime(ProceedingJoinPoint joinpoint) {
 		long start = System.currentTimeMillis();
 		System.out.println("method begin: " + joinpoint.getSignature().toShortString() + " >>");
 		Object output = null;
 
-		for (Object object : joinpoint.getArgs()) 
-		{
+		for (Object object : joinpoint.getArgs()) {
 			System.out.println("Param : " + object);
 		}
 
@@ -47,8 +46,7 @@ public class MyLogger {
 
 		System.out.println("Print info begin >>");
 
-		if (obj instanceof Set) 
-		{
+		if (obj instanceof Set) {
 			Set set = (Set) obj;
 			for (Object object : set) {
 				System.out.println(object);
