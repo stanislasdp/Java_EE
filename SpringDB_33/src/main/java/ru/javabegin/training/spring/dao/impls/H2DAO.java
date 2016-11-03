@@ -3,6 +3,7 @@ package ru.javabegin.training.spring.dao.impls;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 import ru.javabegin.training.spring.dao.interfaces.MP3Dao;
@@ -33,12 +35,10 @@ public class H2DAO implements MP3Dao {
 
 	public void insertWithJDBC(MP3 mp3) 
 	{
-
-	
 		Connection conn = null;
 
 		try {
-			
+
 			conn = DriverManager.getConnection("jdbc:h2:~/test","sa","");
 
 		}
@@ -78,16 +78,37 @@ public class H2DAO implements MP3Dao {
 	@Override
 	public MP3 getMP3ByID(int id) 
 	{
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "select id,name,author from MP3 where ID = " + id;
+		MP3 mp3 = jdbcTemplate.queryForObject(sql, new RowMapper<MP3>() {
+
+			@Override
+			public MP3 mapRow(ResultSet rs, int rowNum) throws SQLException 
+			{
+				MP3 mp3 = new MP3();
+				mp3.setName(rs.getString("name"));
+				mp3.setAuthor(rs.getString("author"));
+				return mp3;
+			}
+		});
+		return mp3;
 	}
 
 	@Override
 	public List<MP3> getMP3ListByName(String name) 
 	{
-		
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "select id,name,author from MP3 where name = " + name;
+		List<MP3> list = jdbcTemplate.query(sql, new RowMapper<MP3>() 
+		{
+			@Override
+			public MP3 mapRow(ResultSet rs, int arg1) throws SQLException {
+				MP3 mp3 = new MP3();
+				mp3.setName(rs.getString("name"));
+				mp3.setAuthor(rs.getString("author"));
+				return mp3;
+			}
+		});
+
+		return list;
 	}
 
 	@Override
