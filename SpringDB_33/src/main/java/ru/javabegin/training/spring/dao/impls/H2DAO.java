@@ -71,7 +71,8 @@ public class H2DAO implements MP3Dao {
 
 	@Override
 	public void delete(MP3 mp3) {
-		// TODO Auto-generated method stub
+		String sql = "delete from MP3 where ID = ?";
+		jdbcTemplate.update(sql,mp3.getId());
 
 	}
 
@@ -85,6 +86,7 @@ public class H2DAO implements MP3Dao {
 			public MP3 mapRow(ResultSet rs, int rowNum) throws SQLException 
 			{
 				MP3 mp3 = new MP3();
+				mp3.setId(rs.getInt("id"));
 				mp3.setName(rs.getString("name"));
 				mp3.setAuthor(rs.getString("author"));
 				return mp3;
@@ -96,12 +98,13 @@ public class H2DAO implements MP3Dao {
 	@Override
 	public List<MP3> getMP3ListByName(String name) 
 	{
-		String sql = "select id,name,author from MP3 where name = " + name;
+		String sql = "select id,name,author from MP3 where name="+"'"+ name+"'";
 		List<MP3> list = jdbcTemplate.query(sql, new RowMapper<MP3>() 
 		{
 			@Override
 			public MP3 mapRow(ResultSet rs, int arg1) throws SQLException {
 				MP3 mp3 = new MP3();
+				mp3.setId(rs.getInt("id"));
 				mp3.setName(rs.getString("name"));
 				mp3.setAuthor(rs.getString("author"));
 				return mp3;
