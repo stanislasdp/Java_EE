@@ -115,9 +115,22 @@ public class H2DAO implements MP3Dao {
 	}
 
 	@Override
-	public List<MP3> getMP3ListByAuthor(String author) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<MP3> getMP3ListByAuthor(String author) 
+	{
+		String sql = "select id,name,author from MP3 where name="+"'"+author+"'";
+		List<MP3> list = jdbcTemplate.query(sql, new RowMapper<MP3>() 
+		{
+			@Override
+			public MP3 mapRow(ResultSet rs, int arg1) throws SQLException {
+				MP3 mp3 = new MP3();
+				mp3.setId(rs.getInt("id"));
+				mp3.setName(rs.getString("name"));
+				mp3.setAuthor(rs.getString("author"));
+				return mp3;
+			}
+		});
+
+		return list;
 	}
 
 }
