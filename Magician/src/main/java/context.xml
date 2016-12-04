@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+	<aop:config>
+		<aop:aspect ref="Magician">
+			<aop:pointcut id="thinking"
+				expression="execution(*
+			com.Magician.Thinker.thinkOfSomething(String))
+and args(thoughts)"/>
+							
+				<aop:before pointcut-ref="thinking" method="interceptThoughts"
+					arg-names="thoughts" />
+		</aop:aspect>
+
+	</aop:config>
+
+
+	<bean id="Thinker" class="Volunteer"></bean>
+	<bean id="Magician" class="Magician"></bean>
+</beans>

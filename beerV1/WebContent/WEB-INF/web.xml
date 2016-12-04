@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:web="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.4">
+	<servlet>
+		<servlet-name>Ch3 Beer</servlet-name>
+		<servlet-class>com.example.web.BeerSelect</servlet-class>
+	</servlet>
+	<servlet>
+	<servlet-name>MyTestJSP</servlet-name>
+	<jsp-file>/result.jsp</jsp-file>
+	<init-param>
+	<param-name>testString</param-name>
+	<param-value>test</param-value>
+	</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Ch3 Beer</servlet-name>
+		<url-pattern>/SelectBeer.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+	<servlet-name>MyTestJSP</servlet-name>
+	<url-pattern>/resultf.jsp</url-pattern>
+	</servlet-mapping>
+
+
+</web-app>

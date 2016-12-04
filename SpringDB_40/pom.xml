@@ -38,6 +38,7 @@
 			<artifactId>spring-jdbc</artifactId>
 			<version>4.0.5.RELEASE</version>
 		</dependency>
+<<<<<<< HEAD
 		
 		<dependency>
 			<groupId>com.h2database</groupId>
@@ -47,5 +48,9 @@
 		
 		
 			
+=======
+
+	
+>>>>>>> branch 'master' of ssh://git@github.com/stanislasdp/Java_EE.git
 	</dependencies>
 </project>
